@@ -72,6 +72,12 @@ flutter:
    - ./lib/assets/fondo1.jpeg
    - ./lib/assets/fondo2.jpeg
    - ./lib/assets/logo.png
+   - ./lib/assets/1.png
+   - ./lib/assets/2.png
+   - ./lib/assets/3.png
+   - ./lib/assets/4.png
+   - ./lib/assets/83863-dripping-water-faucet.json
+   - ./lib/assets/97353-colors-fork.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

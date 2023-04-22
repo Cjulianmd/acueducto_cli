@@ -36,41 +36,48 @@ class _Welcomeanimation extends State<Welcomeanimation>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 7, 125, 184),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Lottie.asset(
+                    '../lib/assets/83863-dripping-water-faucet.json',
+                    controller: _controller,
+                  ),
+                ),
               ),
-              child: Lottie.asset(
-                '../lib/assets/83863-dripping-water-faucet.json',
-                controller: _controller,
+              SizedBox(height: 20),
+              Flexible(
+                child: Text(
+                  'Asociación de Usuarios Acueducto',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Asociación de Usuarios Acueducto',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              SizedBox(height: 8),
+              Flexible(
+                child: Text(
+                  'Veredal La Unión -Bello',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Veredal La Unión -Bello',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

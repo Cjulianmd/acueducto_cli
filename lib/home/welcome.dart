@@ -56,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void _stopTimer() async {
-    _timer?.cancel();
+    _timer.cancel();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('showed_welcome_screen', true);
   }

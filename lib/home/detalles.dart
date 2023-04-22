@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'detalles.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:url_launcher/url_launcher.dart';
 
 class CounterData {
   final int month;
@@ -38,6 +39,12 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     DateTime now = DateTime.now();
     int currentMonth = now.month;
     print(currentMonth);
+    int count = widget.person.counters.length;
+    if (count < 7) {
+      // Si hay menos de 7 elementos, llenar la lista con ceros
+      widget.person.counters.addAll(List.filled(7 - count, 0));
+      count = 7;
+    }
     for (int i = widget.person.counters.length - 7;
         i < widget.person.counters.length - 1;
         i++) {
@@ -134,7 +141,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             children: [
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
-              Text('Contador actual: $_counter'),
+              Text('tu consumo actual: $_counter'),
               Text('tu consumo del ultimo mes fue: $Ncount'),
               Expanded(
                 child: barChart,
@@ -143,23 +150,35 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment
                     .center, // centra los widgets horizontalmente
                 children: [
-                  Container(
-                    width: 250, // establece el ancho de la imagen
-                    height: 100, // establece la altura de la imagen
-                    child: Image.asset(
-                      './lib/assets/pse.png',
-                      fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          'https://servicios.cotrafa.com.co/pseExterno'));
+                    },
+                    child: Container(
+                      width: 250, // establece el ancho de la imagen
+                      height: 100, // establece la altura de la imagen
+                      child: Image.asset(
+                        './lib/assets/pse.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(
                       width:
                           16), // agrega un espacio horizontal entre las imágenes
-                  Container(
-                    width: 80, // establece el ancho de la imagen
-                    height: 80, // establece la altura de la imagen
-                    child: Image.asset(
-                      './lib/assets/info.png',
-                      fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          'https://www.youtube.com/watch?v=cF-KXd7xyKk&pp=ygUeY29tbyBwYWdhciB1bmEgZmFjdHVyYSBwb3IgcHNl'));
+                    },
+                    child: Container(
+                      width: 80, // establece el ancho de la imagen
+                      height: 80, // establece la altura de la imagen
+                      child: Image.asset(
+                        './lib/assets/info.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],

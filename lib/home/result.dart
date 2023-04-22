@@ -59,7 +59,7 @@ class SearchResultScreen extends StatelessWidget {
                 ? Center(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 7, 125, 184),
                         border: Border.all(
                           color: Colors.black,
                           width: 2.0,
@@ -71,7 +71,7 @@ class SearchResultScreen extends StatelessWidget {
                         child: Text(
                           'No se encontraron resultados',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                           ),

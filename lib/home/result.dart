@@ -1,4 +1,3 @@
-
 import 'package:acueducto_cli/home/person.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,7 +43,7 @@ class SearchResultScreen extends StatelessWidget {
             if (snapshot.hasError) {
               return Center(
                 child: Text(
-                  'error al cargar los datos',
+                  snapshot.error.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -56,51 +55,75 @@ class SearchResultScreen extends StatelessWidget {
 
             final List<Person> data = snapshot.data!;
 
-            return ListView.builder(
-              itemCount: data.length,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      data[index].name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+            return data.isEmpty
+                ? Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
-                    subtitle: Text(
-                      data[index].email,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.grey[600],
-                    ),
-                    onTap: () {
-                      saveCounter(data[index].id, index);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PersonDetailsScreen(
-                            person: data[index],
-                            onSave: (value, person) {
-                              saveCounter(value, index);
-                            },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'No se encontraron resultados',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
                           ),
+                        ),
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: data.length,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: ListTile(
+                          title: Text(
+                            data[index].name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Text(
+                            data[index].email,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 14,
+                            ),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.grey[600],
+                          ),
+                          onTap: () {
+                            saveCounter(data[index].id, index);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PersonDetailsScreen(
+                                  person: data[index],
+                                  onSave: (value, person) {
+                                    saveCounter(value, index);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
-                  ),
-                );
-              },
-            );
+                  );
           },
         ),
       ),
@@ -108,17 +131,20 @@ class SearchResultScreen extends StatelessWidget {
   }
 
   Future<List<Person>> fetchData(String query) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('name', isGreaterThanOrEqualTo: query)
-        .where('name', isLessThanOrEqualTo: query + '\uf8ff')
-        .get();
+    if (query == null || query.isEmpty) {
+      return []; // Si no hay consulta, retorna una lista vacía
+    } else {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('name', isGreaterThanOrEqualTo: query)
+          .where('name', isLessThanOrEqualTo: query + '\uf8ff')
+          .get();
 
-    final List<Person> items = snapshot.docs.map((doc) {
-      return Person.fromJson(doc.data());
-    }).toList();
-
-    return items;
+      final List<Person> items = snapshot.docs.map((doc) {
+        return Person.fromJson(doc.data());
+      }).toList();
+      return items;
+    }
   }
 
   void saveCounter(String personId, int index) async {

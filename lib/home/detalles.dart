@@ -24,7 +24,7 @@ class PersonDetailsScreen extends StatefulWidget {
 
 class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
   late int _counter;
-
+  late int Ncount;
   @override
   void initState() {
     super.initState();
@@ -46,6 +46,8 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       int diff = widget.person.counters[i];
       counterDataList.add(CounterData(monthIndex, diff));
     }
+
+    Ncount = widget.person.counters[0] - widget.person.counters[1];
     print('${currentDate.month}: ${currentDate.year}');
 //- widget.person.counters[i + 1];
     List<String> months = [
@@ -133,9 +135,35 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
               Text('Contador actual: $_counter'),
+              Text('tu consumo del ultimo mes fue: $Ncount'),
               Expanded(
                 child: barChart,
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .center, // centra los widgets horizontalmente
+                children: [
+                  Container(
+                    width: 250, // establece el ancho de la imagen
+                    height: 100, // establece la altura de la imagen
+                    child: Image.asset(
+                      './lib/assets/pse.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                      width:
+                          16), // agrega un espacio horizontal entre las imágenes
+                  Container(
+                    width: 80, // establece el ancho de la imagen
+                    height: 80, // establece la altura de la imagen
+                    child: Image.asset(
+                      './lib/assets/info.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

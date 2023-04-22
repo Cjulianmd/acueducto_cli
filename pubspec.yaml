@@ -76,8 +76,10 @@ flutter:
    - ./lib/assets/2.png
    - ./lib/assets/3.png
    - ./lib/assets/4.png
-   - ./lib/assets/83863-dripping-water-faucet.json
-   - ./lib/assets/97353-colors-fork.json
+   - ./lib/assets/5.png
+   - ./lib/assets/info.png
+   - ./lib/assets/wc.json
+   - ./lib/assets/pse.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

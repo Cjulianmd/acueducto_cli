@@ -19,7 +19,7 @@ class _Welcomeanimation extends State<Welcomeanimation>
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..repeat();
-    Future.delayed(Duration(seconds: 4))
+    Future.delayed(Duration(seconds: 5))
         .then((value) => Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => Home()),
@@ -49,7 +49,7 @@ class _Welcomeanimation extends State<Welcomeanimation>
                     shape: BoxShape.circle,
                   ),
                   child: Lottie.asset(
-                    '../lib/assets/83863-dripping-water-faucet.json',
+                    './lib/assets/wc.json',
                     controller: _controller,
                   ),
                 ),
@@ -59,7 +59,7 @@ class _Welcomeanimation extends State<Welcomeanimation>
                 child: Text(
                   'Asociación de Usuarios Acueducto',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -68,9 +68,9 @@ class _Welcomeanimation extends State<Welcomeanimation>
               SizedBox(height: 8),
               Flexible(
                 child: Text(
-                  'Veredal La Unión -Bello',
+                  'Veredal La Unión - Bello',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

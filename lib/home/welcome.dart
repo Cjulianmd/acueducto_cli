@@ -18,10 +18,11 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   final List<String> imagePaths = [
-    '../lib/assets/1.png',
-    '../lib/assets/2.png',
-    '../lib/assets/3.png',
-    '../lib/assets/4.png',
+    './lib/assets/1.png',
+    './lib/assets/2.png',
+    './lib/assets/3.png',
+    './lib/assets/4.png',
+    './lib/assets/5.png'
   ];
   PageController _pageController = PageController();
   late Timer _timer;

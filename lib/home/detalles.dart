@@ -63,6 +63,10 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       'Ene',
     ];
 
+    const pi = 3.14159;
+    double radius = 5.0;
+    double area = radius * radius * pi;
+
     List<charts.Series<CounterData, String>> seriesData = [
       charts.Series(
         id: "Contador",
@@ -70,35 +74,70 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
         domainFn: (CounterData counterData, _) => months[counterData.month],
         measureFn: (CounterData counterData, _) => counterData.number,
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        displayName: 'Número de contadores',
       ),
     ];
 
-    const pi = 3.14159;
-    double radius = 5.0;
-    double area = radius * radius * pi;
+    final barChart = charts.BarChart(
+      seriesData,
+      animate: true,
+      vertical: true,
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.SmallTickRendererSpec(
+          lineStyle: charts.LineStyleSpec(
+            color: charts.Color.black,
+          ),
+          labelStyle: charts.TextStyleSpec(
+            color: charts.Color.white,
+            fontFamily: 'Roboto',
+            fontSize: 14,
+          ),
+        ),
+      ),
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        renderSpec: charts.GridlineRendererSpec(
+          lineStyle: charts.LineStyleSpec(
+            color: charts.Color.black,
+          ),
+          labelStyle: charts.TextStyleSpec(
+            color: charts.Color.black,
+            fontFamily: 'Roboto',
+          ),
+        ),
+      ),
+      layoutConfig: charts.LayoutConfig(
+        leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+        topMarginSpec: charts.MarginSpec.fixedPixel(20),
+        rightMarginSpec: charts.MarginSpec.fixedPixel(30),
+        bottomMarginSpec: charts.MarginSpec.fixedPixel(20),
+      ),
+      // establece el color blanco como color de fondo del gráfico
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.person.name),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nombre: ${widget.person.name}'),
-            Text('Email: ${widget.person.email}'),
-            Text('Contador actual: $_counter'),
-            Expanded(
-              child: Transform.rotate(
-                angle: 0,
-                child: charts.BarChart(
-                  seriesData,
-                  animate: true,
-                  vertical: true,
-                ),
-              ),
-            )
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('./lib/assets/fondo1.jpeg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nombre: ${widget.person.name}'),
+              Text('Email: ${widget.person.email}'),
+              Text('Contador actual: $_counter'),
+              Expanded(
+                child: barChart,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -25,7 +25,7 @@ class _WelcomeanimationState extends State<Welcomeanimation>
         isLoading = false;
       });
     });
-    Future.delayed(Duration(seconds: 14)).then((value) {
+    Future.delayed(Duration(seconds: 15)).then((value) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => Home()),
@@ -42,70 +42,74 @@ class _WelcomeanimationState extends State<Welcomeanimation>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context)
-            .size
-            .height, // Establece el alto del Container como el alto de la pantalla
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("./lib/assets/fondo1.jpeg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-            child: isLoading
-                ? CircularProgressIndicator()
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'Bienvenido',
+      backgroundColor: Colors.blue,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          double screenHeight = constraints.maxHeight;
+          double screenWidth = constraints.maxWidth;
+          double titleFontSize = screenWidth * 0.09;
+          double subTitleFontSize = screenWidth * 0.05;
+          double imageHeight = screenHeight * 0.3;
+          double textPadding = screenWidth * 0.05;
+          return Container(
+            padding: EdgeInsets.all(textPadding),
+            child: Center(
+              child: isLoading
+                  ? CircularProgressIndicator()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Bienvenido',
+                            style: TextStyle(
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.1),
+                        Flexible(
+                          child: Container(
+                            height: imageHeight,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Lottie.asset(
+                              './lib/assets/wc.json',
+                              controller: _controller,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.08),
+                        Text(
+                          'Asociación de Usuarios Acueducto',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: subTitleFontSize,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 50),
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
                             color: Colors.white,
-                            shape: BoxShape.circle,
                           ),
-                          child: Lottie.asset(
-                            './lib/assets/wc.json',
-                            controller: _controller,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Veredal La Unión - Bello',
+                          style: TextStyle(
+                            fontSize: subTitleFontSize,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      SizedBox(height: 50),
-                      Text(
-                        'Asociación de Usuarios Acueducto',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Veredal La Unión - Bello',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  )),
+                      ],
+                    ),
+            ),
+          );
+        },
       ),
     );
   }

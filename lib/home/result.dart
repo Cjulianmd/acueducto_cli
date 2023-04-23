@@ -15,7 +15,7 @@ class SearchResultScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Resultados de búsqueda',
+          'Resultados de búsqueda:',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -58,6 +58,8 @@ class SearchResultScreen extends StatelessWidget {
             return data.isEmpty
                 ? Center(
                     child: Container(
+                      width: 250,
+                      height: 120,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 7, 125, 184),
                         border: Border.all(
@@ -69,7 +71,7 @@ class SearchResultScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'No se encontraron resultados',
+                          'no se encontraron resultados para su búsqueda.',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

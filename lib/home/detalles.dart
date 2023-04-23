@@ -153,9 +153,9 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             children: [
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
-              Text('Numero de contrato: ${widget.person.n_contrato}'),
-              Text('Tu consumo Actual: $_counter'),
-              Text('Promedio de los ultimos 6 meses: $promedio'),
+              Text('Número de contrato: ${widget.person.n_contrato}'),
+              Text('Tu consumo actual: $_counter'),
+              Text('Promedio de los últimos 6 meses: $promedio'),
               Text('Mes de factura: ${widget.person.mes}'),
               Text('Valor a pagar: ${widget.person.valor}'),
               Expanded(

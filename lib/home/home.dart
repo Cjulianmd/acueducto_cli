@@ -19,9 +19,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context)
-            .size
-            .height, // Establece el alto del Container como el alto de la pantalla
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("./lib/assets/fondo1.jpeg"),
@@ -40,96 +38,115 @@ class _HomeState extends State<Home> {
                     './lib/assets/logo.png',
                     fit: BoxFit.cover,
                   ),
-                  SizedBox(height: 70.0),
-                  TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Ingresa tu primer nombre',
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 102, 102, 102),
-                            width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 97, 97, 97), width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 33, 33, 33), width: 2.0),
-                      ),
-                      hintStyle: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Roboto',
-                        fontSize: 16.0,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 18.0, horizontal: 16.0),
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              SearchResultScreen(query: _searchController.text),
+                  SizedBox(height: 50.0),
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Ingresa tu primer nombre',
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 102, 102, 102),
+                                  width: 1.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 97, 97, 97),
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 33, 33, 33),
+                                  width: 2.0),
+                            ),
+                            hintStyle: TextStyle(
+                              color: Colors.grey[700],
+                              fontFamily: 'Roboto',
+                              fontSize: 16.0,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 18.0, horizontal: 16.0),
+                          ),
                         ),
-                      );
-                    },
-                    child: Text('Buscar'),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchResultScreen(
+                                    query: _searchController.text),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                            // shape: CircleBorder(),
+                            padding: EdgeInsets.all(16),
+                          ),
+                          child: Icon(Icons.search),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 5.0),
+                  SizedBox(height: 30),
                   Container(
-                    width: 300, // Ancho del Container
-                    // height: 50,  Alto del Container
+                    padding: EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.blue,
+                    ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'aca podras consultar:',
+                          'Acá podrás consultar:',
                           style: TextStyle(
-                            fontSize: 24.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 300, // Ancho del Container
-                    //  height: 200, Alto del Container
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '-tu consumo actual',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          '-tu consumo promedio de los ultimos 6 meses',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          '-pago de tu factura pse',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '-Tu consumo actual',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '-Tu consumo promedio semestral',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '-Pago de tu factura PSE',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

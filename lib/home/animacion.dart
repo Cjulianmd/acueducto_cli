@@ -17,9 +17,9 @@ class _WelcomeanimationState extends State<Welcomeanimation>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800))
-      ..repeat();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..repeat();
     Future.delayed(Duration(seconds: 2)).then((value) {
       setState(() {
         isLoading = false;
@@ -54,59 +54,58 @@ class _WelcomeanimationState extends State<Welcomeanimation>
         ),
         padding: EdgeInsets.all(16.0),
         child: Center(
-          child: isLoading
-              ? CircularProgressIndicator()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        'Bienvenido',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+            child: isLoading
+                ? CircularProgressIndicator()
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          'Bienvenido',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 50),
-                    Flexible(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Lottie.asset(
-                          './lib/assets/wc.json',
-                          controller: _controller,
+                      SizedBox(height: 50),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Lottie.asset(
+                            './lib/assets/wc.json',
+                            controller: _controller,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 50),
-                    Flexible(
-                      child: Text(
+                      SizedBox(height: 50),
+                      Text(
                         'Asociación de Usuarios Acueducto',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Flexible(
-                      child: Text(
+                      SizedBox(height: 8),
+                      Text(
                         'Veredal La Unión - Bello',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                  ],
-                ),
-        ),
+                    ],
+                  )),
       ),
     );
   }

@@ -45,7 +45,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       // Si hay menos de 7 elementos, llenar la lista con ceros
       widget.person.counters.addAll(List.filled(7 - count, 0));
       count = 7;
-      promedio = 'no hay datos suficientes';
+      promedio = 'datos insuficientes';
     } else {
       int Suma = widget.person.counters[0] +
           widget.person.counters[1] +

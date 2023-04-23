@@ -38,12 +38,24 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     DateTime currentDate = DateTime.now();
     DateTime now = DateTime.now();
     int currentMonth = now.month;
+    String promedio;
     print(currentMonth);
     int count = widget.person.counters.length;
     if (count < 7) {
       // Si hay menos de 7 elementos, llenar la lista con ceros
       widget.person.counters.addAll(List.filled(7 - count, 0));
       count = 7;
+      promedio = 'no hay datos suficientes';
+    } else {
+      int Suma = widget.person.counters[0] +
+          widget.person.counters[1] +
+          widget.person.counters[2] +
+          widget.person.counters[3] +
+          widget.person.counters[4] +
+          widget.person.counters[5] +
+          widget.person.counters[6];
+      double divicion = Suma / 6;
+      promedio = '$divicion';
     }
     for (int i = widget.person.counters.length - 7;
         i < widget.person.counters.length - 1;
@@ -141,14 +153,17 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             children: [
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
-              Text('tu consumo actual: $_counter'),
-              Text('tu consumo del ultimo mes fue: $Ncount'),
+              Text('Numero de contrato: ${widget.person.n_contrato}'),
+              Text('Tu consumo Actual: $_counter'),
+              Text('Promedio de los ultimos 6 meses: $promedio'),
+              Text('Mes de factura: ${widget.person.mes}'),
+              Text('Valor a pagar: ${widget.person.valor}'),
               Expanded(
                 child: barChart,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment
-                    .center, // centra los widgets horizontalmente
+                    .start, // centra los widgets horizontalmente
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -156,7 +171,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                           'https://servicios.cotrafa.com.co/pseExterno'));
                     },
                     child: Container(
-                      width: 250, // establece el ancho de la imagen
+                      width: 260, // establece el ancho de la imagen
                       height: 100, // establece la altura de la imagen
                       child: Image.asset(
                         './lib/assets/pse.png',
@@ -166,7 +181,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                   ),
                   SizedBox(
                       width:
-                          16), // agrega un espacio horizontal entre las imágenes
+                          10), // agrega un espacio horizontal entre las imágenes
                   GestureDetector(
                     onTap: () {
                       launchUrl(Uri.parse(
@@ -174,7 +189,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                     },
                     child: Container(
                       width: 80, // establece el ancho de la imagen
-                      height: 80, // establece la altura de la imagen
+                      height: 60, // establece la altura de la imagen
                       child: Image.asset(
                         './lib/assets/info.png',
                         fit: BoxFit.cover,

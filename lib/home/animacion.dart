@@ -18,14 +18,14 @@ class _WelcomeanimationState extends State<Welcomeanimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600))
+        vsync: this, duration: const Duration(milliseconds: 800))
       ..repeat();
     Future.delayed(Duration(seconds: 2)).then((value) {
       setState(() {
         isLoading = false;
       });
     });
-    Future.delayed(Duration(seconds: 8)).then((value) {
+    Future.delayed(Duration(seconds: 14)).then((value) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => Home()),
@@ -42,8 +42,16 @@ class _WelcomeanimationState extends State<Welcomeanimation>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 7, 125, 184),
-      body: Padding(
+      body: Container(
+        height: MediaQuery.of(context)
+            .size
+            .height, // Establece el alto del Container como el alto de la pantalla
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("./lib/assets/fondo1.jpeg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: isLoading
@@ -51,6 +59,17 @@ class _WelcomeanimationState extends State<Welcomeanimation>
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Flexible(
+                      child: Text(
+                        'Bienvenido',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 50),
                     Flexible(
                       child: Container(
                         decoration: BoxDecoration(
@@ -63,12 +82,12 @@ class _WelcomeanimationState extends State<Welcomeanimation>
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 50),
                     Flexible(
                       child: Text(
                         'Asociación de Usuarios Acueducto',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -79,7 +98,7 @@ class _WelcomeanimationState extends State<Welcomeanimation>
                       child: Text(
                         'Veredal La Unión - Bello',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),

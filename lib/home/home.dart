@@ -44,8 +44,7 @@ class _HomeState extends State<Home> {
                   TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                      hintText:
-                          'Ingresa el nombre con el cual estás registrado',
+                      hintText: 'Ingresa tu primer nombre',
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: OutlineInputBorder(
@@ -86,7 +85,56 @@ class _HomeState extends State<Home> {
                     },
                     child: Text('Buscar'),
                   ),
-                  SizedBox(height: 16.0),
+                  SizedBox(height: 5.0),
+                  Container(
+                    width: 300, // Ancho del Container
+                    // height: 50,  Alto del Container
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'aca podras consultar:',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 300, // Ancho del Container
+                    //  height: 200, Alto del Container
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '-tu consumo actual',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          '-tu consumo promedio de los ultimos 6 meses',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          '-pago de tu factura pse',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

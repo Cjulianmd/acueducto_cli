@@ -1,5 +1,5 @@
-import 'package:acueducto_cli/home/person.dart';
-import 'package:acueducto_cli/home/result.dart';
+import 'package:MiAcueductoFacil/home/person.dart';
+import 'package:MiAcueductoFacil/home/result.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -121,34 +121,46 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '-Tu consumo actual',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
+                            child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.arrow_right, color: Colors.white),
+                                Text(
+                                  'Tu consumo actual',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '-Tu consumo promedio semestral',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.arrow_right, color: Colors.white),
+                                Text(
+                                  'Tu consumo promedio semestral',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '-Pago de tu factura PSE',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.arrow_right, color: Colors.white),
+                                Text(
+                                  'Pago de tu factura PSE',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
+                              ],
+                            ),
+                          ],
+                        )),
                       ],
                     ),
                   ),

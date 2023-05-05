@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:acueducto_cli/home/home.dart';
+import 'package:MiAcueductoFacil/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -25,7 +25,7 @@ class _WelcomeanimationState extends State<Welcomeanimation>
         isLoading = false;
       });
     });
-    Future.delayed(Duration(seconds: 15)).then((value) {
+    Future.delayed(Duration(seconds: 8)).then((value) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => Home()),
@@ -42,7 +42,7 @@ class _WelcomeanimationState extends State<Welcomeanimation>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Color.fromARGB(255, 85, 198, 222),
       body: LayoutBuilder(
         builder: (context, constraints) {
           double screenHeight = constraints.maxHeight;
@@ -54,37 +54,28 @@ class _WelcomeanimationState extends State<Welcomeanimation>
           return Container(
             padding: EdgeInsets.all(textPadding),
             child: Center(
-              child: isLoading
-                  ? CircularProgressIndicator()
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Bienvenido',
-                            style: TextStyle(
-                              fontSize: titleFontSize,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight * 0.1),
-                        Flexible(
-                          child: Container(
-                            height: imageHeight,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Lottie.asset(
-                              './lib/assets/wc.json',
-                              controller: _controller,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight * 0.08),
-                        Text(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Container(
+                      height: imageHeight,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        './lib/assets/logo.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.09),
+                  Image.asset(
+                    './lib/assets/letras.png',
+                    fit: BoxFit.cover,
+                  ),
+                  /*                       Text(
                           'Asociación de Usuarios Acueducto',
                           style: TextStyle(
                             fontSize: subTitleFontSize,
@@ -104,9 +95,9 @@ class _WelcomeanimationState extends State<Welcomeanimation>
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+                      ), */
+                ],
+              ),
             ),
           );
         },

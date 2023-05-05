@@ -3,6 +3,7 @@ class Person {
     required this.id,
     required this.name,
     required this.email,
+    required this.apellido,
     required this.counters, // Hace que la lista de contadores sea nullable
     required this.mes,
     required this.valor,
@@ -14,6 +15,7 @@ class Person {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
+      apellido: json['apellido'] ?? '',
       counters: List<int>.from(json['counters'] ?? []),
       mes: json['mes'] ?? '',
       valor: json['valor'] ?? '',
@@ -23,6 +25,7 @@ class Person {
 
   late List<int> counters;
   final String email;
+  final String apellido;
   final String id;
   final String name;
   final String mes;
@@ -38,6 +41,7 @@ class Person {
       'mes': mes,
       'valor': valor,
       'n_contrato': n_contrato,
+      'apellido': apellido,
     };
   }
 }

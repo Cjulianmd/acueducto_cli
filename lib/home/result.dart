@@ -1,4 +1,4 @@
-import 'package:acueducto_cli/home/person.dart';
+import 'package:MiAcueductoFacil/home/person.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,13 +14,32 @@ class SearchResultScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(
-          'Resultados de búsqueda:',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          children: [
+            SizedBox(width: 60),
+            Text(
+              'Resultados de búsqueda:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(width: 60),
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Image.asset(
+                  './lib/assets/logo.png',
+                  height: 30,
+                ),
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
       ),
@@ -98,7 +117,7 @@ class SearchResultScreen extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            data[index].email,
+                            data[index].apellido,
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14,

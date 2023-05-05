@@ -1,8 +1,5 @@
-import 'package:acueducto_cli/home/person.dart';
+import 'package:MiAcueductoFacil/home/person.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'detalles.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +23,7 @@ class PersonDetailsScreen extends StatefulWidget {
 class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
   late int _counter;
   late int Ncount;
+
   @override
   void initState() {
     super.initState();
@@ -41,31 +39,27 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     String promedio;
     print(currentMonth);
     int count = widget.person.counters.length;
+    double pr = 0;
+
+    for (int i = widget.person.counters.length - 7;
+        i < widget.person.counters.length - 1;
+        i++) {
+      int monthIndex = currentMonth - (widget.person.counters.length + 2 - i);
+      if (monthIndex < 0) monthIndex += 12; // Manejar el cambio de año
+      int diff = widget.person.counters[i - 1] - widget.person.counters[i];
+      counterDataList.add(CounterData(monthIndex, diff));
+      pr = pr + diff;
+    }
+    double calcular = pr / 6;
+    String resultado = calcular.toStringAsFixed(2);
     if (count < 7) {
       // Si hay menos de 7 elementos, llenar la lista con ceros
       widget.person.counters.addAll(List.filled(7 - count, 0));
       count = 7;
       promedio = 'datos insuficientes';
     } else {
-      int Suma = widget.person.counters[0] +
-          widget.person.counters[1] +
-          widget.person.counters[2] +
-          widget.person.counters[3] +
-          widget.person.counters[4] +
-          widget.person.counters[5] +
-          widget.person.counters[6];
-      double divicion = Suma / 6;
-      promedio = '$divicion';
+      promedio = '$resultado';
     }
-    for (int i = widget.person.counters.length - 7;
-        i < widget.person.counters.length - 1;
-        i++) {
-      int monthIndex = currentMonth - (widget.person.counters.length + 0 - i);
-      if (monthIndex < 0) monthIndex += 12; // Manejar el cambio de año
-      int diff = widget.person.counters[i];
-      counterDataList.add(CounterData(monthIndex, diff));
-    }
-
     Ncount = widget.person.counters[0] - widget.person.counters[1];
     print('${currentDate.month}: ${currentDate.year}');
 //- widget.person.counters[i + 1];
@@ -84,10 +78,6 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       'Ene',
     ];
 
-    const pi = 3.14159;
-    double radius = 5.0;
-    double area = radius * radius * pi;
-
     List<charts.Series<CounterData, String>> seriesData = [
       charts.Series(
         id: "Contador",
@@ -104,6 +94,8 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       animate: true,
       vertical: true,
       domainAxis: charts.OrdinalAxisSpec(
+        viewport:
+            charts.OrdinalViewport(counterDataList.first.month.toString(), 7),
         renderSpec: charts.SmallTickRendererSpec(
           lineStyle: charts.LineStyleSpec(
             color: charts.Color.black,
@@ -121,23 +113,44 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             color: charts.Color.black,
           ),
           labelStyle: charts.TextStyleSpec(
-            color: charts.Color.black,
+            color: charts.Color.white,
             fontFamily: 'Roboto',
+            fontSize: 14, // Agregar el tamaño de fuente aquí
           ),
         ),
       ),
+      barRendererDecorator: charts.BarLabelDecorator<String>(),
       layoutConfig: charts.LayoutConfig(
         leftMarginSpec: charts.MarginSpec.fixedPixel(30),
         topMarginSpec: charts.MarginSpec.fixedPixel(20),
         rightMarginSpec: charts.MarginSpec.fixedPixel(30),
         bottomMarginSpec: charts.MarginSpec.fixedPixel(20),
       ),
-      // establece el color blanco como color de fondo del gráfico
     );
 
+    int consumo = _counter - widget.person.counters[1];
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.person.name),
+        title: Row(
+          children: [
+            Text(widget.person.name),
+            SizedBox(width: 200),
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Image.asset(
+                  './lib/assets/logo.png',
+                  height: 30,
+                ),
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -154,13 +167,62 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
               Text('Número de contrato: ${widget.person.n_contrato}'),
-              Text('Tu consumo actual: $_counter'),
-              Text('Promedio de los últimos 6 meses: $promedio'),
               Text('Mes de factura: ${widget.person.mes}'),
+              Text('Lectura actual: $_counter'),
+              Text('Lectura anterior: ${widget.person.counters[1]}'),
+              Text('Tu consumo: $consumo'),
+              Text('Promedio de los últimos 6 meses: $promedio'),
               Text('Valor a pagar: ${widget.person.valor}'),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Acción a realizar cuando se presiona el botón
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size(80, 60),
+                    ),
+                    child: Text(
+                      'Descarga aquí tu factura',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Acción a realizar cuando se presiona el botón
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size(80, 60),
+                    ),
+                    child: Text(
+                      'Prueba de lectura',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 10),
               Expanded(
                 child: barChart,
               ),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment
                     .start, // centra los widgets horizontalmente
@@ -198,6 +260,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                   ),
                 ],
               ),
+              // establece la altura de la imagen
             ],
           ),
         ),

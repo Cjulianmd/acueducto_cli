@@ -4,10 +4,11 @@ class Person {
     required this.name,
     required this.email,
     required this.apellido,
-    required this.counters, // Hace que la lista de contadores sea nullable
+    required this.counters, // Hace que la lista de contadores sea nullable image_url
     required this.mes,
     required this.valor,
     required this.n_contrato,
+    required this.image_url,
   });
 
   factory Person.fromJson(Map<String, dynamic> json) {
@@ -20,6 +21,7 @@ class Person {
       mes: json['mes'] ?? '',
       valor: json['valor'] ?? '',
       n_contrato: json['n_contrato'] ?? '',
+      image_url: json['image_url'] ?? '',
     );
   }
 
@@ -31,6 +33,7 @@ class Person {
   final String mes;
   final String valor;
   final String n_contrato;
+  final String image_url;
 
   Map<String, dynamic> toJson() {
     return {
@@ -42,6 +45,7 @@ class Person {
       'valor': valor,
       'n_contrato': n_contrato,
       'apellido': apellido,
+      'image_url': image_url,
     };
   }
 }

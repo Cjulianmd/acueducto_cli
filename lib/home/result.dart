@@ -16,17 +16,7 @@ class SearchResultScreen extends StatelessWidget {
         elevation: 0,
         title: Row(
           children: [
-            SizedBox(width: 60),
-            Text(
-              'Resultados de búsqueda:',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(width: 60),
-            Container(
+            /*           Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
@@ -37,6 +27,14 @@ class SearchResultScreen extends StatelessWidget {
                   './lib/assets/logo.png',
                   height: 30,
                 ),
+              ),
+            ),*/
+            Text(
+              'Resultados de búsqueda:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -155,10 +153,12 @@ class SearchResultScreen extends StatelessWidget {
     if (query == null || query.isEmpty) {
       return []; // Si no hay consulta, retorna una lista vacía
     } else {
+      final lowerCaseQuery = query.toLowerCase();
+
       final snapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('name', isGreaterThanOrEqualTo: query)
-          .where('name', isLessThanOrEqualTo: query + '\uf8ff')
+          .where('name', isGreaterThanOrEqualTo: lowerCaseQuery)
+          .where('name', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
           .get();
 
       final List<Person> items = snapshot.docs.map((doc) {

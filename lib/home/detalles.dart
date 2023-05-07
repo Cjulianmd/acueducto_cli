@@ -134,7 +134,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
         title: Row(
           children: [
             Text(widget.person.name),
-            SizedBox(width: 200),
+            SizedBox(width: 100),
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -174,44 +174,47 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Text('Promedio de los últimos 6 meses: $promedio'),
               Text('Valor a pagar: ${widget.person.valor}'),
               SizedBox(height: 10),
+
               Row(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Acción a realizar cuando se presiona el botón
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Acción a realizar cuando se presiona el botón
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      minimumSize: Size(80, 60),
-                    ),
-                    child: Text(
-                      'Descarga aquí tu factura',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                      child: Text(
+                        'Descarga aquí tu factura',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Acción a realizar cuando se presiona el botón
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        launchUrl(Uri.parse('${widget.person.image_url}'));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      minimumSize: Size(80, 60),
-                    ),
-                    child: Text(
-                      'Prueba de lectura',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                      child: Text(
+                        'Prueba de lectura',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),

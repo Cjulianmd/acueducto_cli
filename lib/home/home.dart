@@ -83,11 +83,13 @@ class _HomeState extends State<Home> {
                         bottom: 0,
                         child: ElevatedButton(
                           onPressed: () {
+                            final searchText = _searchController.text
+                                .toLowerCase(); // Convertir a minúsculas
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SearchResultScreen(
-                                    query: _searchController.text),
+                                builder: (context) =>
+                                    SearchResultScreen(query: searchText),
                               ),
                             );
                           },
@@ -139,7 +141,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 Icon(Icons.arrow_right, color: Colors.white),
                                 Text(
-                                  'Tu consumo promedio semestral',
+                                  'Tu consumo promedio',
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     color: Colors.white,
@@ -174,12 +176,14 @@ class _HomeState extends State<Home> {
   }
 
   Future<List<Person>> _fetchData(String query) async {
+    final lowerCaseQuery = query.toLowerCase();
+
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where('name', isGreaterThanOrEqualTo: query)
-        .where('name', isLessThanOrEqualTo: query + '\uf8ff')
-        .where('id', isGreaterThanOrEqualTo: query)
-        .where('id', isLessThanOrEqualTo: query + '\uf8ff')
+        .where('name', isGreaterThanOrEqualTo: lowerCaseQuery)
+        .where('name', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
+        .where('id', isGreaterThanOrEqualTo: lowerCaseQuery)
+        .where('id', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
         .get();
 
     final List<Person> items = snapshot.docs.map((doc) {

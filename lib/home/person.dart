@@ -7,7 +7,7 @@ class Person {
     required this.counters, // Hace que la lista de contadores sea nullable image_url
     required this.mes,
     required this.valor,
-    required this.n_contrato,
+    required this.sector,
     required this.image_url,
   });
 
@@ -20,7 +20,7 @@ class Person {
       counters: List<int>.from(json['counters'] ?? []),
       mes: json['mes'] ?? '',
       valor: json['valor'] ?? '',
-      n_contrato: json['n_contrato'] ?? '',
+      sector: json['sector'] ?? '',
       image_url: json['image_url'] ?? '',
     );
   }
@@ -32,7 +32,7 @@ class Person {
   final String name;
   final String mes;
   final String valor;
-  final String n_contrato;
+  final String sector;
   final String image_url;
 
   Map<String, dynamic> toJson() {
@@ -43,7 +43,7 @@ class Person {
       'counters': counters,
       'mes': mes,
       'valor': valor,
-      'n_contrato': n_contrato,
+      'Sector': sector,
       'apellido': apellido,
       'image_url': image_url,
     };

@@ -127,7 +127,14 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
         bottomMarginSpec: charts.MarginSpec.fixedPixel(20),
       ),
     );
+    String clientId = widget.person.id;
 
+// Construye la URL del archivo PDF
+    //   String baseUrl =$baseUrl/$fileName
+    'gs://mineragro-6b792.appspot.com/facturas'; // Reemplaza con la URL base del almacenamiento
+    String fileName = '$clientId.pdf'; // Reemplaza con el nombre del archivo
+    String fileUrl =
+        'https://firebasestorage.googleapis.com/v0/b/mineragro-6b792.appspot.com/o/facturas%2F$clientId.pdf?alt=media&token=5b158e4a-a23c-4a89-b5bc-c96259dd150c';
     int consumo = _counter - widget.person.counters[1];
     return Scaffold(
       appBar: AppBar(
@@ -166,10 +173,12 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             children: [
               Text('Nombre: ${widget.person.name}'),
               Text('Email: ${widget.person.email}'),
-              Text('Número de contrato: ${widget.person.n_contrato}'),
+              Text('Sector: ${widget.person.sector}'),
               Text('Mes de factura: ${widget.person.mes}'),
               Text('Lectura actual: $_counter'),
-              Text('Lectura anterior: ${widget.person.counters[1]}'),
+              Text(
+                  'Lectura anterior: ${widget.person.counters.length >= 2 ? widget.person.counters[1] : 'No hay datos'}'),
+
               Text('Tu consumo: $consumo'),
               Text('Promedio de los últimos 6 meses: $promedio'),
               Text('Valor a pagar: ${widget.person.valor}'),
@@ -179,8 +188,12 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                 children: [
                   Flexible(
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Acción a realizar cuando se presiona el botón
+                      onPressed: () async {
+                        if (fileUrl != null) {
+                          await launch(fileUrl);
+                        } else {
+                          print('No se pudo abrir la URL: $fileUrl');
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
@@ -201,7 +214,8 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                   Flexible(
                     child: ElevatedButton(
                       onPressed: () {
-                        launchUrl(Uri.parse('${widget.person.image_url}'));
+                        launch(widget.person.image_url);
+                        //launchUrl(Uri.parse('${widget.person.image_url}'));
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,

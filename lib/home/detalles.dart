@@ -60,6 +60,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     } else {
       promedio = '$resultado';
     }
+
     Ncount = widget.person.counters[0] - widget.person.counters[1];
     print('${currentDate.month}: ${currentDate.year}');
 //- widget.person.counters[i + 1];
@@ -236,9 +237,18 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               ),
 
               SizedBox(height: 10),
-              Expanded(
-                child: barChart,
-              ),
+              if (widget.person.counters.length < 6)
+                Text(
+                  'Datos insuficientes',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              else
+                Expanded(
+                  child: barChart,
+                ),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment

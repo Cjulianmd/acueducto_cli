@@ -173,7 +173,9 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Nombre: ${widget.person.name}'),
+              Text('Apellido: ${widget.person.apellido}'),
               Text('Email: ${widget.person.email}'),
+              Text('Numero de contador: ${widget.person.id}'),
               Text('Sector: ${widget.person.sector}'),
               Text('Mes de factura: ${widget.person.mes}'),
               Text('Lectura actual: $_counter'),

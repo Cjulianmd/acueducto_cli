@@ -109,13 +109,13 @@ class SearchResultScreen extends StatelessWidget {
                         ),
                         child: ListTile(
                           title: Text(
-                            data[index].name,
+                            '${data[index].name} ${data[index].apellido}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           subtitle: Text(
-                            data[index].apellido,
+                            'Sector:${data[index].sector}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14,

@@ -9,6 +9,7 @@ class Person {
     required this.valor,
     required this.sector,
     required this.image_url,
+    required this.cedula,
   });
 
   factory Person.fromJson(Map<String, dynamic> json) {
@@ -22,6 +23,7 @@ class Person {
       valor: json['valor'] ?? '',
       sector: json['sector'] ?? '',
       image_url: json['image_url'] ?? '',
+      cedula: json['cedula'] ?? '',
     );
   }
 
@@ -34,6 +36,7 @@ class Person {
   final String valor;
   final String sector;
   final String image_url;
+  final String cedula;
 
   Map<String, dynamic> toJson() {
     return {
@@ -46,6 +49,7 @@ class Person {
       'Sector': sector,
       'apellido': apellido,
       'image_url': image_url,
+      'cedula': cedula,
     };
   }
 }

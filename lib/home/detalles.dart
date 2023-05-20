@@ -177,6 +177,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Text('Email: ${widget.person.email}'),
               Text('Numero de contador: ${widget.person.id}'),
               Text('Sector: ${widget.person.sector}'),
+              Text('Cedula: ${widget.person.cedula}'),
               Text('Mes de factura: ${widget.person.mes}'),
               Text('Lectura actual: $_counter'),
               Text(

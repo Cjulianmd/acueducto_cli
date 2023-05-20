@@ -115,7 +115,7 @@ class SearchResultScreen extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            'Sector:${data[index].sector}                         Numero de Contador:${data[index].id}',
+                            'Sector:${data[index].sector}                                         Numero de Contador:${data[index].id}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14,

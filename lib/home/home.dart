@@ -83,8 +83,7 @@ class _HomeState extends State<Home> {
                         bottom: 0,
                         child: ElevatedButton(
                           onPressed: () {
-                            final searchText = _searchController.text
-                                .toLowerCase(); // Convertir a minúsculas
+                            final searchText = _searchController.text;
                             Navigator.push(
                               context,
                               MaterialPageRoute(

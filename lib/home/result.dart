@@ -153,12 +153,13 @@ class SearchResultScreen extends StatelessWidget {
     if (query == null || query.isEmpty) {
       return []; // Si no hay consulta, retorna una lista vacía
     } else {
-      final lowerCaseQuery = query.toLowerCase();
+      final firstLetterUpperCase = query.substring(0, 1).toUpperCase();
+      final restLowerCase = query.substring(1).toLowerCase();
+      final searchQuery = firstLetterUpperCase + restLowerCase;
 
       final snapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('name', isGreaterThanOrEqualTo: lowerCaseQuery)
-          .where('name', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
+          .where('name', isEqualTo: searchQuery)
           .get();
 
       final List<Person> items = snapshot.docs.map((doc) {

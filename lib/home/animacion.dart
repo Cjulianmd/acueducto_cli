@@ -25,7 +25,7 @@ class _WelcomeanimationState extends State<Welcomeanimation>
         isLoading = false;
       });
     });
-    Future.delayed(Duration(seconds: 8)).then((value) {
+    Future.delayed(Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => Home()),

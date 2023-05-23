@@ -175,7 +175,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Text('Nombre: ${widget.person.name}'),
               Text('Apellido: ${widget.person.apellido}'),
               Text('Email: ${widget.person.email}'),
-              Text('Numero de contador: ${widget.person.id}'),
+              Text('Codigo: ${widget.person.id}'),
               Text('Sector: ${widget.person.sector}'),
               Text('Cedula: ${widget.person.cedula}'),
               Text('Mes de factura: ${widget.person.mes}'),
@@ -276,8 +276,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                           10), // agrega un espacio horizontal entre las imágenes
                   GestureDetector(
                     onTap: () {
-                      launchUrl(Uri.parse(
-                          'https://www.youtube.com/watch?v=cF-KXd7xyKk&pp=ygUeY29tbyBwYWdhciB1bmEgZmFjdHVyYSBwb3IgcHNl'));
+                      launchUrl(Uri.parse('https://youtu.be/j3LRd9tLphA'));
                     },
                     child: Container(
                       width: 80, // establece el ancho de la imagen

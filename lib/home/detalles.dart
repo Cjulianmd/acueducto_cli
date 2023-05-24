@@ -41,7 +41,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     int count = widget.person.counters.length;
     double pr = 0;
 
-    if (widget.person.counters.length < 6) {
+    if (widget.person.counters.length < 8) {
       // Si hay menos de 8 elementos, llenar la lista con ceros
       widget.person.counters.addAll(List.filled(8 - count, 0));
       count = 8;

@@ -37,9 +37,17 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     DateTime now = DateTime.now();
     int currentMonth = now.month;
     String promedio;
-    print(currentMonth);
+
     int count = widget.person.counters.length;
     double pr = 0;
+
+    if (widget.person.counters.length < 6) {
+      // Si hay menos de 8 elementos, llenar la lista con ceros
+      widget.person.counters.addAll(List.filled(8 - count, 0));
+      count = 8;
+
+      promedio = 'datos insuficientes';
+    }
 
     for (int i = widget.person.counters.length - 7;
         i < widget.person.counters.length - 1;
@@ -52,18 +60,10 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     }
     double calcular = pr / 6;
     String resultado = calcular.toStringAsFixed(2);
-    if (count < 7) {
-      // Si hay menos de 7 elementos, llenar la lista con ceros
-      widget.person.counters.addAll(List.filled(7 - count, 0));
-      count = 7;
-      promedio = 'datos insuficientes';
-    } else {
-      promedio = '$resultado';
-    }
-
+    promedio = '$resultado';
     Ncount = widget.person.counters[0] - widget.person.counters[1];
     print('${currentDate.month}: ${currentDate.year}');
-//- widget.person.counters[i + 1];
+    //- widget.person.counters[i + 1];
     List<String> months = [
       'Dic',
       'Nov',
@@ -130,8 +130,8 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     );
     String clientId = widget.person.id;
 
-// Construye la URL del archivo PDF
-    //   String baseUrl =$baseUrl/$fileName
+    // Construye la URL del archivo PDF
+    // String baseUrl =$baseUrl/$fileName
     'gs://mineragro-6b792.appspot.com/facturas'; // Reemplaza con la URL base del almacenamiento
     String fileName = '$clientId.pdf'; // Reemplaza con el nombre del archivo
     String fileUrl =
@@ -240,18 +240,11 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               ),
 
               SizedBox(height: 10),
-              if (widget.person.counters.length < 6)
-                Text(
-                  'Datos insuficientes',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              else
-                Expanded(
-                  child: barChart,
-                ),
+
+              Expanded(
+                child: barChart,
+              ),
+
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment

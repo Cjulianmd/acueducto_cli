@@ -42,9 +42,15 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     double pr = 0;
 
     if (widget.person.counters.length < 8) {
-      // Si hay menos de 8 elementos, llenar la lista con ceros
-      widget.person.counters.addAll(List.filled(8 - count, 0));
-      count = 8;
+      int count = widget.person.counters.length;
+
+      // Obtener el último elemento de la lista
+      int lastValue = widget.person.counters.last;
+
+      // Llenar la lista con el último valor hasta alcanzar una longitud de 8
+      widget.person.counters
+          .addAll(List.filled(8 - widget.person.counters.length, lastValue));
+      print(lastValue);
 
       promedio = 'datos insuficientes';
     }
@@ -55,9 +61,15 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       int monthIndex = currentMonth - (widget.person.counters.length + 2 - i);
       if (monthIndex < 0) monthIndex += 12; // Manejar el cambio de año
       int diff = widget.person.counters[i - 1] - widget.person.counters[i];
+      if (diff > 1000) {
+        diff = 0;
+      }
       counterDataList.add(CounterData(monthIndex, diff));
       pr = pr + diff;
+      print(diff);
     }
+
+    print(pr);
     double calcular = pr / 6;
     String resultado = calcular.toStringAsFixed(2);
     promedio = '$resultado';

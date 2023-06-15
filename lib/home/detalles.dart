@@ -33,48 +33,43 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     List<CounterData> counterDataList = [];
-    DateTime currentDate = DateTime.now();
-    DateTime now = DateTime.now();
-    int currentMonth = now.month;
     String promedio;
 
-    int count = widget.person.counters.length;
     double pr = 0;
 
     if (widget.person.counters.length < 8) {
-      int count = widget.person.counters.length;
-
       // Obtener el último elemento de la lista
       int lastValue = widget.person.counters.last;
 
       // Llenar la lista con el último valor hasta alcanzar una longitud de 8
       widget.person.counters
           .addAll(List.filled(8 - widget.person.counters.length, lastValue));
-      print(lastValue);
 
       promedio = 'datos insuficientes';
     }
 
+    //el ciclo para obtener los meses y los datos que le corresponden
     for (int i = widget.person.counters.length - 7;
         i < widget.person.counters.length - 1;
         i++) {
-      int monthIndex = currentMonth - (widget.person.counters.length + 2 - i);
+      int currentMonth = DateTime.now().month; // Obtener el mes actual
+
+      int monthIndex = i - currentMonth;
+
       if (monthIndex < 0) monthIndex += 12; // Manejar el cambio de año
+
       int diff = widget.person.counters[i - 1] - widget.person.counters[i];
       if (diff > 1000) {
         diff = 0;
       }
       counterDataList.add(CounterData(monthIndex, diff));
       pr = pr + diff;
-      print(diff);
     }
 
-    print(pr);
     double calcular = pr / 6;
     String resultado = calcular.toStringAsFixed(2);
     promedio = '$resultado';
     Ncount = widget.person.counters[0] - widget.person.counters[1];
-    print('${currentDate.month}: ${currentDate.year}');
     //- widget.person.counters[i + 1];
     List<String> months = [
       'Dic',
@@ -145,7 +140,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     // Construye la URL del archivo PDF
     // String baseUrl =$baseUrl/$fileName
     'gs://mineragro-6b792.appspot.com/facturas'; // Reemplaza con la URL base del almacenamiento
-    String fileName = '$clientId.pdf'; // Reemplaza con el nombre del archivo
+
     String fileUrl =
         'https://firebasestorage.googleapis.com/v0/b/mineragro-6b792.appspot.com/o/facturas%2F$clientId.pdf?alt=media&token=5b158e4a-a23c-4a89-b5bc-c96259dd150c';
     int consumo = _counter - widget.person.counters[1];

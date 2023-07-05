@@ -1,7 +1,6 @@
 import 'package:MiAcueductoFacil/home/person.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'detalles.dart';
 
 class SearchResultScreen extends StatelessWidget {
@@ -126,15 +125,12 @@ class SearchResultScreen extends StatelessWidget {
                             color: Colors.grey[600],
                           ),
                           onTap: () {
-                            saveCounter(data[index].id, index);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PersonDetailsScreen(
                                   person: data[index],
-                                  onSave: (value, person) {
-                                    saveCounter(value, index);
-                                  },
+                                  onSave: (value, person) {},
                                 ),
                               ),
                             );
@@ -150,38 +146,34 @@ class SearchResultScreen extends StatelessWidget {
   }
 
   Future<List<Person>> fetchData(String query) async {
-    if (query == null || query.isEmpty) {
+    if (query.isEmpty) {
       return []; // Si no hay consulta, retorna una lista vacía
     } else {
-      final firstLetterUpperCase = query.substring(0, 1).toUpperCase();
-      final restLowerCase = query.substring(1).toLowerCase();
-      final searchQuery = firstLetterUpperCase + restLowerCase;
-
       final snapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('name', isEqualTo: searchQuery)
-          .get();
+          .get(); // Obtiene todos los documentos de la colección 'users'
 
-      final List<Person> items = snapshot.docs.map((doc) {
-        return Person.fromJson(doc.data());
+      final List<Person> items =
+          snapshot.docs.map((doc) => Person.fromJson(doc.data())).toList();
+
+      // Filtra los elementos basados en la consulta de búsqueda
+      final filteredList = items.where((person) {
+        final cleanedQuery = query.replaceAll(
+            ' ', ''); // Elimina los espacios en blanco de la consulta
+        final cleanedName = person.name
+            .replaceAll(' ', ''); // Elimina los espacios en blanco del nombre
+        final cleanedId = person.id
+            .toString()
+            .replaceAll(' ', ''); // Elimina los espacios en blanco del ID
+
+        return cleanedName.toLowerCase().contains(cleanedQuery.toLowerCase()) ||
+            cleanedId.contains(cleanedQuery.toLowerCase());
       }).toList();
-      return items;
-    }
-  }
 
-  void saveCounter(String personId, int index) async {
-    try {
-      final userRef =
-          FirebaseFirestore.instance.collection('users').doc(personId);
+      filteredList
+          .sort((a, b) => a.id.compareTo(b.id)); // Ordena los elementos por ID
 
-      // Obtiene los contadores actuales del documento de Firestore
-      final docSnapshot = await userRef.get();
-      final counters = List<int>.from(docSnapshot.get('counters') ?? []);
-
-      // Muestra una alerta indicando que el guardado fue exitoso
-    } catch (e) {
-      // Muestra una alerta indicando que el guardado ha fallado
-      print(e);
+      return filteredList;
     }
   }
 }

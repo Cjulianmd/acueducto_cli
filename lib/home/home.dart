@@ -1,9 +1,6 @@
-import 'package:MiAcueductoFacil/home/person.dart';
 import 'package:MiAcueductoFacil/home/result.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'detalles.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -172,39 +169,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  Future<List<Person>> _fetchData(String query) async {
-    final lowerCaseQuery = query.toLowerCase();
-
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('name', isGreaterThanOrEqualTo: lowerCaseQuery)
-        .where('name', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
-        .where('id', isGreaterThanOrEqualTo: lowerCaseQuery)
-        .where('id', isLessThanOrEqualTo: lowerCaseQuery + '\uf8ff')
-        .get();
-
-    final List<Person> items = snapshot.docs.map((doc) {
-      return Person.fromJson(doc.data());
-    }).toList();
-
-    return items;
-  }
-
-  void saveCounter(String personId, int index) async {
-    try {
-      final userRef =
-          FirebaseFirestore.instance.collection('users').doc(personId);
-
-      // Obtiene los contadores actuales del documento de Firestore
-      final docSnapshot = await userRef.get();
-      final counters = List<int>.from(docSnapshot.get('counters') ?? []);
-
-      // Muestra una alerta indicando que el guardado fue exitoso
-    } catch (e) {
-      // Muestra una alerta indicando que el guardado ha fallado
-      print(e);
-    }
   }
 }
